@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Угадай число - C++ Игра</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        #game {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        input, button {
+            padding: 8px;
+            margin: 5px;
+            font-size: 16px;
+        }
+        #result {
+            margin: 15px 0;
+            font-weight: bold;
+            min-height: 24px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Угадай число (C++ версия)</h1>
+    
+    <div id="game">
+        <p>Эта HTML-страница демонстрирует игру, написанную на C++.</p>
+        <p>Чтобы запустить настоящую C++ версию:</p>
+        
+        <div style="background: #eee; padding: 10px; border-radius: 5px; margin: 15px 0;">
+            <code>git clone https://github.com/ваш-логин/guess_number_game.git<br>
+            cd guess_number_game<br>
+            mkdir build && cd build<br>
+            cmake .. && make<br>
+            ./game</code>
+        </div>
+
+        <h3>Демо-версия в браузере:</h3>
+        <p>Попробуйте угадать число от 1 до 100:</p>
+        <input type="number" id="guessInput" min="1" max="100" placeholder="Ваше число">
+        <button onclick="checkGuess()">Проверить</button>
+        <div id="result"></div>
+        <button onclick="startNewGame()">Новая игра</button>
+    </div>
+
+    <script>
+        // Простая JavaScript реализация для демонстрации
+        let targetNumber;
+        let attempts;
+        
+        function startNewGame() {
+            targetNumber = Math.floor(Math.random() * 100) + 1;
+            attempts = 0;
+            document.getElementById('result').innerText = '';
+            document.getElementById('guessInput').value = '';
+        }
+        
+        function checkGuess() {
+            const guess = parseInt(document.getElementById('guessInput').value);
+            if (isNaN(guess) || guess < 1 || guess > 100) {
+                document.getElementById('result').innerText = 'Введите число от 1 до 100';
+                return;
+            }
+            
+            attempts++;
+            
+            if (guess === targetNumber) {
+                document.getElementById('result').innerText = `Поздравляем! Вы угадали за ${attempts} попыток.`;
+            } else if (guess < targetNumber) {
+                document.getElementById('result').innerText = 'Слишком мало!';
+            } else {
+                document.getElementById('result').innerText = 'Слишком много!';
+            }
+        }
+        
+        // Начать игру при загрузке страницы
+        startNewGame();
+    </script>
+</body>
+</html>
